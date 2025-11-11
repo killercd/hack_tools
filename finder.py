@@ -9,6 +9,7 @@ def search_content(p: Path, cre: re.Pattern):
         with p.open('r', errors='ignore') as fh:
             for line in fh:
                 if cre.search(line):
+                    print(cre)
                     return True
     except (OSError, UnicodeError):
         return False
@@ -21,6 +22,7 @@ def main():
     ap.add_argument("file_pattern", help="File pattern (glob, e.g. '*.py')", nargs='?', default='*')
     ap.add_argument("--pattern","-p", help="Content ()", required=False)
     ap.add_argument("--recursive", "-r", action="store_true", help="Search recursively (default uses rglob; keep for clarity)")
+    ap.add_argument("--show-line", action="store_true", help="Show entire line of pattern in file")
     
     args = ap.parse_args()
 
